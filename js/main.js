@@ -184,12 +184,45 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mode === 'voice') {
             // Integration mit ElevenLabs Widget
             console.log('Starte Voice-Journey mit ElevenLabs');
-            // Hier würde das ElevenLabs Widget geladen
+            
+            // Zeige ElevenLabs Widget
+            const widget = document.getElementById('elevenlabs-widget');
+            widget.style.display = 'block';
+            widget.style.position = 'fixed';
+            widget.style.bottom = '20px';
+            widget.style.right = '20px';
+            widget.style.zIndex = '1000';
+            
+            // Trigger Widget öffnen
+            setTimeout(() => {
+                const elevenlabsElement = document.querySelector('elevenlabs-convai');
+                if (elevenlabsElement && elevenlabsElement.open) {
+                    elevenlabsElement.open();
+                }
+            }, 500);
+            
         } else {
             // Text-basierte Journey
             console.log('Starte Text-Journey');
-            // Hier würde die Text-Interface geladen
+            displayTextJourney();
         }
+    }
+    
+    function displayTextJourney() {
+        const forgeVisualization = document.querySelector('.forge-visualization');
+        const journey = window.archetypeEngine.beginJourney('schmied', 'text');
+        
+        let currentStage = 0;
+        const stageHTML = `
+            <div class="text-journey">
+                <h3 class="journey-stage">${journey.stages[currentStage].name}</h3>
+                <p class="journey-prompt">${journey.stages[currentStage].prompt}</p>
+                <textarea class="journey-input" placeholder="Deine Antwort..."></textarea>
+                <button class="journey-continue">Weiter</button>
+            </div>
+        `;
+        
+        forgeVisualization.innerHTML = stageHTML;
     }
     
     // Parallax Scrolling Effect
