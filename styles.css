@@ -1,0 +1,603 @@
+/* DYAI.space - Kosmisches Design System */
+
+:root {
+    /* Kosmische Farbpalette */
+    --cosmic-black: #000000;
+    --stellar-blue: #0a1628;
+    --nebula-purple: #1a0033;
+    --forge-orange: #ff6b35;
+    --star-white: #ffffff;
+    --archetype-gold: #ffd700;
+    
+    /* Gradienten */
+    --cosmic-gradient: radial-gradient(ellipse at center, #1a0033 0%, #000000 100%);
+    --stellar-glow: 0 0 20px rgba(255, 255, 255, 0.3);
+    
+    /* Typografie */
+    --font-mystical: 'Avenir', 'Helvetica Neue', sans-serif;
+    --font-cosmic: 'Georgia', serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-mystical);
+    background: var(--cosmic-black);
+    color: var(--star-white);
+    overflow-x: hidden;
+    cursor: crosshair;
+}
+
+/* WebGL Container */
+#webgl-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: var(--cosmic-gradient);
+}
+
+#cosmos-canvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0.8;
+}
+
+/* Loading Screen */
+.loading-cosmos {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--cosmic-black);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 1s ease-out;
+}
+
+.loading-cosmos.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-star {
+    width: 50px;
+    height: 50px;
+    background: var(--star-white);
+    border-radius: 50%;
+    box-shadow: var(--stellar-glow);
+    animation: pulse-star 2s infinite ease-in-out;
+}
+
+.loading-text {
+    margin-top: 30px;
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    animation: fade-in-out 3s infinite;
+}
+
+/* Navigation */
+.cosmic-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 50px;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.nav-constellation {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.nav-star {
+    color: var(--star-white);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-star::before {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--archetype-gold);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.nav-star:hover {
+    opacity: 1;
+    text-shadow: var(--stellar-glow);
+}
+
+.nav-star:hover::before {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero-cosmos {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 100px 20px;
+}
+
+.stellar-forge {
+    text-align: center;
+    animation: fade-in-up 2s ease-out;
+}
+
+.dyai-logo-container {
+    margin-bottom: 50px;
+}
+
+.dyai-logo {
+    width: 400px;
+    height: 200px;
+    max-width: 90vw;
+}
+
+.dyai-text {
+    font-size: 100px;
+    font-weight: 100;
+    fill: var(--star-white);
+    letter-spacing: 0.3em;
+    opacity: 0;
+    animation: stellar-emergence 3s ease-out forwards;
+}
+
+.dyai-subtitle {
+    font-size: 16px;
+    fill: var(--star-white);
+    opacity: 0.7;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    animation: fade-in 3s ease-out 1s forwards;
+}
+
+.archetypal-message {
+    margin-top: 30px;
+}
+
+.cosmic-whisper {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    animation: fade-in 3s ease-out 2s forwards;
+}
+
+/* Archetypal Spheres */
+.archetypal-spheres {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.sphere {
+    position: absolute;
+    cursor: pointer;
+    pointer-events: all;
+    transform: translate(-50%, -50%);
+}
+
+.sphere:nth-child(1) {
+    top: 30%;
+    left: 20%;
+}
+
+.sphere:nth-child(2) {
+    top: 40%;
+    right: 20%;
+    left: auto;
+}
+
+.sphere:nth-child(3) {
+    bottom: 30%;
+    left: 50%;
+    top: auto;
+}
+
+.sphere-core {
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at 30% 30%, var(--forge-orange), transparent);
+    border-radius: 50%;
+    position: relative;
+    animation: sphere-rotation 20s infinite linear;
+    box-shadow: 
+        0 0 50px rgba(255, 107, 53, 0.5),
+        inset 0 0 50px rgba(255, 107, 53, 0.3);
+}
+
+.sphere-core::before {
+    content: '';
+    position: absolute;
+    inset: -20px;
+    border-radius: 50%;
+    background: radial-gradient(circle, transparent 30%, rgba(255, 107, 53, 0.1) 70%);
+    animation: pulse-glow 3s infinite ease-in-out;
+}
+
+.sphere-label {
+    position: absolute;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.sphere:hover .sphere-label {
+    opacity: 1;
+}
+
+.sphere:hover .sphere-core {
+    animation-play-state: paused;
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+/* Sections */
+section {
+    min-height: 100vh;
+    padding: 100px 50px;
+    position: relative;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.stellar-title {
+    font-size: 3rem;
+    font-weight: 100;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fade-in-up 1s ease-out forwards;
+}
+
+.stellar-subtitle {
+    font-size: 1.2rem;
+    font-weight: 300;
+    opacity: 0.7;
+    letter-spacing: 0.1em;
+    animation: fade-in 1s ease-out 0.5s forwards;
+}
+
+/* Forge Section */
+.stellar-forge-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.forge-interface {
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+}
+
+.forge-title {
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    margin-bottom: 50px;
+}
+
+.forge-btn {
+    background: transparent;
+    border: 1px solid var(--star-white);
+    color: var(--star-white);
+    padding: 15px 40px;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.forge-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: var(--forge-orange);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+}
+
+.forge-btn:hover {
+    color: var(--cosmic-black);
+    border-color: var(--forge-orange);
+}
+
+.forge-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.forge-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+/* Animations */
+@keyframes pulse-star {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+    }
+}
+
+@keyframes fade-in-out {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+@keyframes stellar-emergence {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes fade-in {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes sphere-rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.8;
+    }
+}
+
+/* Archetype Cards */
+.archetype-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.archetype-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.archetype-card:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--archetype-gold);
+    transform: translateY(-5px);
+}
+
+.archetype-symbol {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.archetype-name {
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+}
+
+/* Archetype Activation */
+.archetype-activation {
+    max-width: 600px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.archetype-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.archetype-description {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    margin-bottom: 30px;
+}
+
+.archetype-questions {
+    margin: 30px 0;
+}
+
+.question {
+    font-size: 1rem;
+    margin: 15px 0;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+.begin-journey-btn {
+    background: transparent;
+    border: 1px solid var(--star-white);
+    color: var(--star-white);
+    padding: 12px 30px;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 30px;
+}
+
+.begin-journey-btn:hover {
+    background: var(--star-white);
+    color: var(--cosmic-black);
+}
+
+/* Schmied Portal */
+.schmied-portal {
+    max-width: 500px;
+    margin: 50px auto;
+    text-align: center;
+}
+
+.portal-options {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.portal-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--star-white);
+    padding: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+.portal-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--forge-orange);
+    transform: scale(1.05);
+}
+
+.portal-btn .icon {
+    font-size: 2rem;
+}
+
+/* Cursor Trail */
+.cursor-trail-dot {
+    position: fixed;
+    border-radius: 50%;
+    background: var(--star-white);
+    pointer-events: none;
+    opacity: 0.5;
+    z-index: 9998;
+    mix-blend-mode: screen;
+}
+
+/* Visibility Classes */
+.visible {
+    opacity: 1 !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-constellation {
+        gap: 20px;
+    }
+    
+    .nav-star {
+        font-size: 0.8rem;
+    }
+    
+    .stellar-title {
+        font-size: 2rem;
+    }
+    
+    .cosmic-whisper {
+        font-size: 1rem;
+    }
+    
+    .sphere-core {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .archetype-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .portal-options {
+        flex-direction: column;
+    }
+} 

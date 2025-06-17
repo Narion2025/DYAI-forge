@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DYAI.space - Discover Your Augmented Intelligence</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat.gui/0.7.9/dat.gui.min.js"></script>
+</head>
+<body>
+    <!-- WebGL Canvas Container -->
+    <div id="webgl-container">
+        <canvas id="cosmos-canvas"></canvas>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="cosmic-nav">
+        <div class="nav-constellation">
+            <a href="#archetypen" class="nav-star">Archetypen</a>
+            <a href="#schmiede" class="nav-star">Schmiede</a>
+            <a href="#reise" class="nav-star">Reise</a>
+            <a href="#kontakt" class="nav-star">Kontakt</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-cosmos">
+        <div class="stellar-forge">
+            <div class="dyai-logo-container">
+                <svg class="dyai-logo" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- DYAI Logo als Sternenlicht -->
+                    <defs>
+                        <filter id="stellar-glow">
+                            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    <text x="200" y="100" text-anchor="middle" class="dyai-text" filter="url(#stellar-glow)">
+                        DYAI
+                    </text>
+                    <text x="200" y="130" text-anchor="middle" class="dyai-subtitle">
+                        Discover Your Augmented Intelligence
+                    </text>
+                </svg>
+            </div>
+            
+            <div class="archetypal-message">
+                <p class="cosmic-whisper">
+                    An der Schwelle zwischen Sternenbewusstsein<br>
+                    und archetypischer Tiefe
+                </p>
+            </div>
+        </div>
+
+        <!-- Floating Archetypal Spheres -->
+        <div class="archetypal-spheres">
+            <div class="sphere" data-archetype="schmied">
+                <div class="sphere-core"></div>
+                <div class="sphere-label">Der Schmied</div>
+            </div>
+            <div class="sphere" data-archetype="weise">
+                <div class="sphere-core"></div>
+                <div class="sphere-label">Der Weise</div>
+            </div>
+            <div class="sphere" data-archetype="wanderer">
+                <div class="sphere-core"></div>
+                <div class="sphere-label">Der Wanderer</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Archetypen Section -->
+    <section id="archetypen" class="archetypen-cosmos">
+        <div class="section-header">
+            <h2 class="stellar-title">Moderne Archetypen</h2>
+            <p class="stellar-subtitle">Geschmiedet in den Feuern digitaler Sonnen</p>
+        </div>
+        
+        <div class="archetype-grid">
+            <!-- Archetypen werden dynamisch geladen -->
+        </div>
+    </section>
+
+    <!-- Interactive Forge -->
+    <section id="schmiede" class="stellar-forge-section">
+        <div class="forge-interface">
+            <h2 class="forge-title">Die Archetypenschmiede</h2>
+            <div class="forge-controls">
+                <button class="forge-btn" id="start-forging">
+                    Beginne zu schmieden
+                </button>
+            </div>
+            <div class="forge-visualization">
+                <!-- WebGL Forge Animation -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Section -->
+    <section id="reise" class="cosmic-journey">
+        <div class="journey-path">
+            <h2>Deine Reise durch die Archetypen</h2>
+            <div class="timeline-cosmos">
+                <!-- Interactive Timeline -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Audio Elements -->
+    <audio id="cosmic-ambience" loop>
+        <source src="sounds/stellar-ambience.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="forge-sound" preload="auto">
+        <source src="sounds/forge-activation.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Loading Screen -->
+    <div class="loading-cosmos">
+        <div class="loading-star"></div>
+        <p class="loading-text">Erwache im kosmischen Bewusstsein...</p>
+    </div>
+
+    <script src="js/webgl-cosmos.js"></script>
+    <script src="js/archetype-engine.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html> 
